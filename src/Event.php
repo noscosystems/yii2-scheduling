@@ -141,9 +141,16 @@ class Event extends Component
      */
     protected function runCommandInForeground(Application $app)
     {
-        (new Process(
-            trim($this->buildCommand(), '& '), dirname($app->request->getScriptFile()), null, null, null
-        ))->run();
+        $command = explode(' ', $this->buildCommand());
+
+        $process = new Process(
+            command: $command,
+            cwd: dirname($app->request->getScriptFile()),
+            timeout: null
+        );
+
+        $process->run();
+
         $this->callAfterCallbacks($app);
     }
 
