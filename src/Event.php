@@ -141,7 +141,7 @@ class Event extends Component
      */
     protected function runCommandInForeground(Application $app)
     {
-        $command = explode(' ', $this->buildCommand());
+        $command = explode(' ', trim($this->buildCommand(), '& '));
 
         $process = new Process(
             command: $command,
